@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_mvvm_example/interfaces/i_star_wars_api.dart';
-import 'package:flutter_mvvm_example/utils/swapi.dart';
+import 'package:flutter_mvvm_example/services/swapi_service.dart';
 
 void main() {
-  IStarWarsApi swapi = Swapi();
+  IStarWarsApi swapi = SwapiService();
 
   test(
     'Films GET request test',

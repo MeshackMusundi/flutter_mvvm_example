@@ -9,4 +9,12 @@ class Character {
     this.height,
     this.eyeColor,
   });
+
+  Character.fromMap(Map<String, dynamic> map) {
+    name = map['name'];
+    birthYear = map['birth_year'];
+    gender = map['gender'];
+    height = int.parse(map['height']);
+    eyeColor = map['eye_color'];
+  }
 }

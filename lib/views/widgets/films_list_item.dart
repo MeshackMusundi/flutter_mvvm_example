@@ -9,20 +9,7 @@ class FilmsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-          title: _title(),
-          subtitle: _subTitle(),
-        ),
-        Divider(),
-      ],
-    );
-  }
-
-  Widget _title() {
-    return Text(
+    var title = Text(
       film?.title,
       style: TextStyle(
         color: StarWarsStyles.titleColor,
@@ -30,10 +17,8 @@ class FilmsListItem extends StatelessWidget {
         fontSize: StarWarsStyles.titleFontSize,
       ),
     );
-  }
 
-  Widget _subTitle() {
-    return Row(
+    var subTitle = Row(
       children: <Widget>[
         Icon(
           Icons.movie,
@@ -51,5 +36,16 @@ class FilmsListItem extends StatelessWidget {
         ),
       ],
     );
-  }  
+
+    return Column(
+      children: <Widget>[
+        ListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+          title: title,
+          subtitle: subTitle,
+        ),
+        Divider(),
+      ],
+    );
+  }
 }

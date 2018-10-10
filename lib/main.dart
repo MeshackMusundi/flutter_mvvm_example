@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_example/views/pages/main_page.dart';
 
-void main() => runApp(App());
+void main() => runApp(MvvmApp());
 
-class App extends StatelessWidget {
+class MvvmApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

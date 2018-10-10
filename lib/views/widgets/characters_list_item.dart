@@ -10,6 +10,34 @@ class CharactersListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var title = Text(
+      character?.name,
+      style: TextStyle(
+        color: StarWarsStyles.titleColor,
+        fontWeight: FontWeight.bold,
+        fontSize: StarWarsStyles.titleFontSize,
+      ),
+    );
+
+    var subTitle = Row(
+      children: <Widget>[
+        Text(
+          character?.birthYear,
+          style: TextStyle(
+            color: StarWarsStyles.subTitleColor,
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(left: 6.0),
+          child: Icon(
+            _genderSymbol(),
+            color: StarWarsStyles.subTitleColor.withAlpha(200),
+            size: StarWarsStyles.subTitleFontSize,
+          ),
+        ),
+      ],
+    );
+
     return Column(
       children: <Widget>[
         ListTile(
@@ -19,42 +47,10 @@ class CharactersListItem extends StatelessWidget {
             size: 40.0,
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-          title: _title(),
-          subtitle: _subTitle(),
+          title: title,
+          subtitle: subTitle,
         ),
         Divider(),
-      ],
-    );
-  }
-
-  Widget _title() {
-    return Text(
-      character?.name,
-      style: TextStyle(
-        color: StarWarsStyles.titleColor,
-        fontWeight: FontWeight.bold,
-        fontSize: StarWarsStyles.titleFontSize,
-      ),
-    );
-  }
-
-  Widget _subTitle() {
-    return Row(
-      children: <Widget>[
-        Text(
-          character?.birthYear,
-          style: TextStyle(
-            color: StarWarsStyles.subTitleColor,
-          ),
-        ),       
-        Container(
-          margin: const EdgeInsets.only(left: 6.0),
-          child: Icon(
-            _genderSymbol(),
-            color: StarWarsStyles.subTitleColor.withAlpha(200),
-            size: StarWarsStyles.subTitleFontSize,
-          ),
-        ),
       ],
     );
   }

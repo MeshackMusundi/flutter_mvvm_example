@@ -9,4 +9,12 @@ class Film {
     this.producer,
     this.releaseDate,
   });
+
+  Film.fromMap(Map<String, dynamic> map) {
+    title = map['title'];
+    openingCrawl = map['opening_crawl'];
+    director = map['director'];
+    producer = map['producer'];
+    releaseDate = DateTime.parse(map['release_date']);
+  }
 }

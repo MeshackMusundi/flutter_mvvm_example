@@ -1,39 +1,34 @@
 import 'package:flutter_mvvm_example/interfaces/i_star_wars_api.dart';
-import 'package:flutter_mvvm_example/utils/swapi.dart';
+import 'package:flutter_mvvm_example/services/swapi_service.dart';
 import 'package:flutter_mvvm_example/view_models/main_page_view_model.dart';
 import 'package:test/test.dart';
 
 main() {
-  IStarWarsApi swapi = Swapi();
-  MainPageViewModel starWarsViewModel = MainPageViewModel(api: swapi);
+  IStarWarsApi swapi = SwapiService();
+  MainPageViewModel viewModel = MainPageViewModel(api: swapi);
 
   test(
     'Films fetch test',
     () async {      
-      await starWarsViewModel.fetchFilms();
-      var films = starWarsViewModel.films;
-
+      await viewModel.setFilms();
+      var films = await viewModel.films;
       expect(films.length, 7);
     },
   );
 
   test(
-    'Films loading test',
+    'Characters fetch test',
     () async {      
-      await starWarsViewModel.fetchFilms();
-      bool isLoadingFilms = starWarsViewModel.isLoadingFilms;
-
-      expect(isLoadingFilms, true);
+      var gotCharacters = await viewModel.setCharacters();
+      expect(gotCharacters, true);
     },
   );
 
   test(
-    'Films fetch internet connection test',
+    'Planets fetch test',
     () async {      
-      await starWarsViewModel.fetchFilms();
-      bool isNotConnected = starWarsViewModel.noInternetConnection;
-
-      expect(isNotConnected, false);
+      var gotPlanets = await viewModel.setPlanets();
+      expect(gotPlanets, true);
     },
   );
 }

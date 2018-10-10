@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_example/utils/swapi.dart';
+import 'package:flutter_mvvm_example/services/swapi_service.dart';
 import 'package:flutter_mvvm_example/view_models/main_page_view_model.dart';
 import 'package:flutter_mvvm_example/views/widgets/characters_panel.dart';
 import 'package:flutter_mvvm_example/views/widgets/films_panel.dart';
@@ -14,21 +14,21 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin {
-  MainPageViewModel model;
+  MainPageViewModel viewModel;
   TabController tabController;
+
+  Future loadData() async {
+    await viewModel.setFilms();
+    await viewModel.setCharacters();
+    await viewModel.setPlanets();
+  }
 
   @override
   void initState() {
     super.initState();
-    model = MainPageViewModel(api: Swapi());
+    viewModel = MainPageViewModel(api: SwapiService());
     tabController = TabController(vsync: this, length: 3);
     loadData();
-  }
-
-  Future loadData() async {
-    await model.fetchFilms();
-    await model.fetchCharacters();
-    await model.fetchPlanets();
   }
 
   @override
@@ -54,7 +54,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
         ),
       ),
       body: ScopedModel<MainPageViewModel>(
-        model: model,
+        model: viewModel,
         child: TabBarView(
           controller: tabController,
           children: <Widget>[
@@ -64,25 +64,6 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
           ],
         ),
       ),
-      floatingActionButton: ScopedModel<MainPageViewModel>(
-        model: model,
-        child: refreshButton(),
-      ),
-    );
-  }
-
-  Widget refreshButton() {
-    return ScopedModelDescendant<MainPageViewModel>(
-      builder: (context, child, model) {
-        if (model.noInternetConnection == false) 
-        return Container(width: 0.0, height: 0.0,);
-
-        return FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColorLight,
-          child: Icon(Icons.refresh),
-          onPressed: () => loadData(),
-        );
-      },
     );
   }
 

@@ -10,20 +10,7 @@ class PlanetsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-          title: _title(),
-          subtitle: _subTitle(),
-        ),
-        Divider(),
-      ],
-    );
-  }
-
-  Widget _title() {
-    return Text(
+    var title = Text(
       planet?.name,
       style: TextStyle(
         color: StarWarsStyles.titleColor,
@@ -31,10 +18,8 @@ class PlanetsListItem extends StatelessWidget {
         fontSize: StarWarsStyles.titleFontSize,
       ),
     );
-  }
 
-  Widget _subTitle() {
-    return Row(
+    var subTitle = Row(
       children: <Widget>[
         Icon(
           FontAwesomeIcons.users,
@@ -50,6 +35,17 @@ class PlanetsListItem extends StatelessWidget {
             ),
           ),
         ),
+      ],
+    );
+
+    return Column(
+      children: <Widget>[
+        ListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+          title: title,
+          subtitle: subTitle,
+        ),
+        Divider(),
       ],
     );
   }
