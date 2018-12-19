@@ -1,7 +1,7 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_mvvm_example/interfaces/i_star_wars_api.dart';
 import 'package:flutter_mvvm_example/services/swapi_service.dart';
 import 'package:flutter_mvvm_example/view_models/main_page_view_model.dart';
-import 'package:test/test.dart';
 
 main() {
   IStarWarsApi swapi = SwapiService();
