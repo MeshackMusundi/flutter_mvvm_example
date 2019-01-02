@@ -10,37 +10,54 @@ class SwapiService implements IStarWarsApi {
   final _baseUrl = 'https://swapi.co/api';
 
   static final SwapiService _internal = SwapiService.internal();
-  factory SwapiService () => _internal;
+  factory SwapiService() => _internal;
   SwapiService.internal();
 
-  Future<dynamic> _getData(String url) async {
-    var response = await http.get(url);
-    var data = json.decode(response.body);
-    return data;
-  }
+  http.Client client = http.Client();
 
   Future<List<Film>> getFilms() async {
-    var data = await _getData('$_baseUrl/films');
-    List<dynamic> filmsData = data['results'];
-    List<Film> films = filmsData.map((f) => Film.fromMap(f)).toList();
+    var response = await client.get('$_baseUrl/films');
 
-    return films;
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+
+      List<dynamic> filmsData = data['results'];
+      List<Film> films = filmsData.map((f) => Film.fromMap(f)).toList();
+
+      return films;
+    } else {
+      throw Exception('Failed to get data');
+    }
   }
 
   Future<List<Character>> getCharacters() async {
-    var data = await _getData('$_baseUrl/people');
-    List<dynamic> charactersData = data['results'];
-    List<Character> characters =
-        charactersData.map((c) => Character.fromMap(c)).toList();
+    var response = await client.get('$_baseUrl/people');
 
-    return characters;
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+
+      List<dynamic> charactersData = data['results'];
+      List<Character> characters =
+          charactersData.map((c) => Character.fromMap(c)).toList();
+
+      return characters;
+    } else {
+      throw Exception('Failed to get data');
+    }
   }
 
   Future<List<Planet>> getPlanets() async {
-    var data = await _getData('$_baseUrl/planets');
-    List<dynamic> planetsData = data['results'];
-    List<Planet> planets = planetsData.map((p) => Planet.fromMap(p)).toList();
+    var response = await client.get('$_baseUrl/planets');
 
-    return planets;
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+
+      List<dynamic> planetsData = data['results'];
+      List<Planet> planets = planetsData.map((p) => Planet.fromMap(p)).toList();
+
+      return planets;
+    } else {
+      throw Exception('Failed to get data');
+    }
   }
 }
