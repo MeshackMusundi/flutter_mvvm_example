@@ -1,11 +1,10 @@
+import 'package:flutter_mvvm_example/mocks/mocks.dart';
 import 'package:flutter_mvvm_example/models/film.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_mvvm_example/services/swapi_service.dart';
 import 'package:flutter_mvvm_example/view_models/main_page_view_model.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
-
-class MockClient extends Mock implements http.Client {}
 
 main() {
   final String baseUrl = 'https://swapi.co/api';
