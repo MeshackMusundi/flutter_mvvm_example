@@ -28,22 +28,22 @@ class MainPageViewModel extends Model {
     notifyListeners();
   }
 
-  final IStarWarsApi api;
+  final IStarWarsApi apiSvc;
 
-  MainPageViewModel({@required this.api});
+  MainPageViewModel({@required this.apiSvc});
 
   Future<bool> setFilms() async {
-    films = api?.getFilms();
+    films = apiSvc?.getFilms();
     return films != null;
   }
 
   Future<bool> setCharacters() async {
-    characters = api?.getCharacters();
+    characters = apiSvc?.getCharacters();
     return characters != null;
   }
 
   Future<bool> setPlanets() async {
-    planets = api?.getPlanets();
+    planets = apiSvc?.getPlanets();
     return planets != null;
   }
 }

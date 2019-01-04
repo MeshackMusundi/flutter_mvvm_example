@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_example/services/swapi_service.dart';
 import 'package:flutter_mvvm_example/view_models/main_page_view_model.dart';
 import 'package:flutter_mvvm_example/views/widgets/characters_panel.dart';
 import 'package:flutter_mvvm_example/views/widgets/films_panel.dart';
@@ -9,24 +8,26 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MainPage extends StatefulWidget {
+  final MainPageViewModel viewModel;
+
+  MainPage({Key key, @required this.viewModel}) : super(key: key);
+
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin {
-  MainPageViewModel viewModel;
   TabController tabController;
 
   Future loadData() async {
-    await viewModel.setFilms();
-    await viewModel.setCharacters();
-    await viewModel.setPlanets();
+    await widget.viewModel.setFilms();
+    await widget.viewModel.setCharacters();
+    await widget.viewModel.setPlanets();
   }
 
   @override
   void initState() {
     super.initState();
-    viewModel = MainPageViewModel(api: SwapiService());
     tabController = TabController(vsync: this, length: 3);
     loadData();
   }
@@ -54,7 +55,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
         ),
       ),
       body: ScopedModel<MainPageViewModel>(
-        model: viewModel,
+        model: widget.viewModel,
         child: TabBarView(
           controller: tabController,
           children: <Widget>[

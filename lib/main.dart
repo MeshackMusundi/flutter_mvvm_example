@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm_example/services/swapi_service.dart';
+import 'package:flutter_mvvm_example/view_models/main_page_view_model.dart';
 import 'package:flutter_mvvm_example/views/pages/main_page.dart';
 
-void main() => runApp(MvvmApp());
+final MainPageViewModel mainPageVM = MainPageViewModel(apiSvc: SwapiService());
+
+void main() => runApp(MvvmApp(mainPageVM: mainPageVM));
 
 class MvvmApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final MainPageViewModel mainPageVM;
+
+  MvvmApp({@required this.mainPageVM});
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -14,7 +21,7 @@ class MvvmApp extends StatelessWidget {
         primaryColorLight: Color(0xff0a0a0a),
         primaryColorDark: Color(0xff000000),
       ),
-      home: MainPage(),
+      home: MainPage(viewModel: mainPageVM),
       debugShowCheckedModeBanner: false,
     );
   }

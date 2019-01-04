@@ -10,7 +10,7 @@ main() {
   final String baseUrl = 'https://swapi.co/api';
   final MockClient client = MockClient();
   final SwapiService svc = SwapiService()..client = client;
-  MainPageViewModel viewModel = MainPageViewModel(api: svc);
+  MainPageViewModel viewModel = MainPageViewModel(apiSvc: svc);
 
   test(
     'Films fetch test',
