@@ -8,15 +8,16 @@ import 'package:flutter_mvvm_example/models/planet.dart';
 
 class SwapiService implements IStarWarsApi {
   final _baseUrl = 'https://swapi.co/api';
+  http.Client _client = http.Client();
+
+  set client(http.Client value) => _client = value;
 
   static final SwapiService _internal = SwapiService.internal();
   factory SwapiService() => _internal;
   SwapiService.internal();
 
-  http.Client client = http.Client();
-
   Future<List<Film>> getFilms() async {
-    var response = await client.get('$_baseUrl/films');
+    var response = await _client.get('$_baseUrl/films');
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
@@ -31,7 +32,7 @@ class SwapiService implements IStarWarsApi {
   }
 
   Future<List<Character>> getCharacters() async {
-    var response = await client.get('$_baseUrl/people');
+    var response = await _client.get('$_baseUrl/people');
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
@@ -47,7 +48,7 @@ class SwapiService implements IStarWarsApi {
   }
 
   Future<List<Planet>> getPlanets() async {
-    var response = await client.get('$_baseUrl/planets');
+    var response = await _client.get('$_baseUrl/planets');
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
